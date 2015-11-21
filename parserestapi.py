@@ -15,6 +15,7 @@ import json, httplib
 #
 # result = json.loads(connection.getresponse().read())
 
+#https://parse.com/docs/rest/guide#objects-retrieving-objects
 connection = httplib.HTTPSConnection('api.parse.com', 443)
 connection.connect()
 connection.request('GET', '/1/classes/TestApp/pjyOHm9Fzn', '', {
