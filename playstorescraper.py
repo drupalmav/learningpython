@@ -59,11 +59,8 @@ def get_app_lastupdate(pkg):
     appDict['reviewCnt'] = reviewCnt
     appDict['reviews_list'] = reviews_list
     appDict['rating'] = rating
-
-
-
-
     return appDict
+
 
 def print_individual_appdetail(package):
     lastUpdate = get_app_lastupdate(package)
@@ -72,13 +69,14 @@ def print_individual_appdetail(package):
     print lastUpdate['lastUpdaDate']
     print lastUpdate['downloadCnt']
     print lastUpdate['reviewCnt']
+    print lastUpdate['rating']
 
 
 
 
 def searchappsbykeywords(keyword):
 
-    url = "https://play.google.com/store/search?q=focus&c=apps"
+    url = "https://play.google.com/store/search?q=" + keyword + "&c=apps"
 
     opener = urllib2.build_opener()
     opener.addheaders = [('User-agent', 'Mozilla/5.0')]
@@ -88,13 +86,16 @@ def searchappsbykeywords(keyword):
 
     allapps = soup.find_all('div', {'class': 'card-content id-track-click id-track-impression'})
 
-    for eachapp in allapps:
+    print len(allapps)
+
+    #for eachapp in allapps:
         #print eachapp
-        title = eachapp.find('a', {'class': 'title'}).text
-        for eachapp in allapps:
-            link = eachapp.find('a', {'class': 'title'}).get("href")
-            pkg = link.rsplit('=', 1)[1]
-            print_individual_appdetail(pkg)
+        #title = eachapp.find('a', {'class': 'title'}).text
+        #print title
+    for eachapp in allapps:
+        link = eachapp.find('a', {'class': 'title'}).get("href")
+        pkg = link.rsplit('=', 1)[1]
+        print_individual_appdetail(pkg)
 
 
 searchappsbykeywords("procrastination")
